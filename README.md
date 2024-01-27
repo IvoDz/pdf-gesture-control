@@ -29,7 +29,7 @@ Before you begin, ensure you have:
 To run the application, execute:
     
   ```bash
-  python main.py
+  poetry run python main.py <path/to/your/pdf>
   ```
 
 ## Usage
