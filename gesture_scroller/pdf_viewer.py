@@ -1,7 +1,7 @@
 import fitz
 import tkinter as tk
 from PIL import Image, ImageTk
-from global_gesture import gesture_queue
+from globals import gesture_queue, terminate
 import queue
 
 class PDFViewer:
@@ -9,13 +9,13 @@ class PDFViewer:
         self.pdf_path = pdf_path
         self.doc = fitz.open(pdf_path)
         self.current_page = 0
-        
         self.a4_width_px = int(210 / 25.4 * 96) 
         self.a4_height_px = int(297 / 25.4 * 96)
 
         self.window = tk.Tk()
         self.window.title("PDF Viewer")
         self.window.geometry(f"{self.a4_width_px}x{self.a4_height_px}")
+        self.window.protocol("WM_DELETE_WINDOW", self.on_window_close)
 
         self.canvas = tk.Canvas(self.window, bg="white", width=self.a4_width_px, height=self.a4_height_px)
         self.canvas.pack(fill="both", expand=True)
@@ -37,6 +37,11 @@ class PDFViewer:
         self.photo = ImageTk.PhotoImage(image)
         self.canvas.create_image(10, 10, image=self.photo, anchor="nw")
 
+    def on_window_close(self):
+        global terminate
+        self.window.destroy()
+        terminate = True  
+        
 
     def prev_page(self, event=None):
         if self.current_page > 0:
@@ -55,6 +60,11 @@ class PDFViewer:
             self.prev_page()
     
     def check_gesture(self):
+        global terminate
+        if terminate:
+            self.window.destroy()
+            return  
+        
         try:
             while not gesture_queue.empty():
                 gesture = gesture_queue.get_nowait()
