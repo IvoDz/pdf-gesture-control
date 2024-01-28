@@ -15,7 +15,7 @@ Before you begin, ensure you have:
   
   ```bash
   git clone https://github.com/IvoDz/pdf-gesture-control.git
-  cd pdf-gesture-control
+  cd pdf-gesture-control/gesture_scroller
   ```
 
 2. **Install dependencies:**
