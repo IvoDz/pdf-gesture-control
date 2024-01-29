@@ -5,9 +5,9 @@ Simple gesture-controlled PDF reader, that allows to navigate through PDFs using
 ### Prerequisites
 
 Before you begin, ensure you have:
-- Python 3.11
-- Poetry
-- Webcam
+- python 3.11
+- poetry (for convenient dependency management)
+- laptop camera
 
 ### Installation
 
@@ -37,6 +37,8 @@ To run the application, execute:
 After PDF is opened, make sure you are sitting in front of the webcam. Now use gestures:
 - Opened fist (✋), to go to the **next** page 
 - Closed fist (✊), to go to the **previous** page
+
+Arrow keys (Up, Right for **next** page, Left, Down for **previous** page) can also be used.
 
 To exit, use 🤘 or ✌️, or simply close the reader.
 
