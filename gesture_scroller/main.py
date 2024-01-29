@@ -11,7 +11,7 @@ if __name__ == "__main__":
     except FileNotFoundError:
         print("PDF file not found!")
         sys.exit(1)
-    
+
     capturer_thread = threading.Thread(target=capture)
     capturer_thread.start()
 

@@ -39,10 +39,9 @@ class PDFViewer:
 
     def on_window_close(self):
         global terminate
-        self.window.destroy()
-        terminate = True  
+        terminate.set()
+        self.window.destroy()  
         
-
     def prev_page(self, event=None):
         if self.current_page > 0:
             self.current_page -= 1
@@ -60,20 +59,15 @@ class PDFViewer:
             self.prev_page()
     
     def check_gesture(self):
-        global terminate
-        if terminate:
-            self.window.destroy()
-            return  
-        
         try:
-            while not gesture_queue.empty():
+            while not gesture_queue.empty() and not terminate.is_set():
                 gesture = gesture_queue.get_nowait()
                 print(f"Gesture detected: {gesture}")
                 self.process_gesture(gesture)
         except queue.Empty:
             pass
-        self.window.after(100, self.check_gesture)
 
     def run(self):
-        self.check_gesture()
-        self.window.mainloop()
+        while not terminate.is_set():  
+            self.check_gesture()
+            self.window.update()  

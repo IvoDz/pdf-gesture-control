@@ -1,4 +1,6 @@
 import queue
+import threading
 
 gesture_queue = queue.Queue()
-terminate = False
+
+terminate = threading.Event()
